@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Hilf Anton aufs Rad 🚴</title>
+<title>Antons Rennrad — Hilf ihm starten 🚴</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Syne:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,800&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,9 +20,9 @@
     --bg2:         #13111F;             /* card bg */
     --line:        rgba(255,255,255,0.12); /* hairline rules */
     --line-strong: rgba(255,255,255,0.30);
-    --accent:      #C8B8D4;             /* lavender — matches bike frame */
-    --accent-mid:  #9D87AE;             /* deeper purple */
-    --accent-dim:  rgba(200,184,212,0.45);
+    --accent:      #A87FD4;             /* lavender — matches bike frame */
+    --accent-mid:  #8058B8;             /* deeper purple */
+    --accent-dim:  rgba(168,127,212,0.50);
     --muted:       rgba(255,255,255,0.46);
     --very-muted:  rgba(255,255,255,0.22);
     --pp-blue:     #003087;
@@ -35,7 +35,7 @@
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
   body {
-    font-family: 'Syne', system-ui, sans-serif;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
     background: var(--bg);
     color: var(--ink);
     min-height: 100vh;
@@ -53,7 +53,7 @@
   .lang-btn {
     pointer-events: all;
     display: inline-flex; align-items: center; gap: 0.35rem;
-    font-family: 'Syne', sans-serif; font-size: 0.62rem;
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.62rem;
     font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
     color: var(--muted); text-decoration: none;
     border: 1px solid var(--line); border-radius: 2px;
@@ -85,7 +85,7 @@
     pointer-events: none;
     /* slight purple ambient behind bike */
     background: radial-gradient(ellipse 55% 55% at 78% 54%,
-      rgba(130,100,160,0.18) 0%, transparent 70%);
+      rgba(120,70,190,0.22) 0%, transparent 70%);
   }
   .hero-bike img {
     width: 62%; max-width: 780px; height: auto;
@@ -145,10 +145,10 @@
 
   /* headline — each line mask-wipes up */
   .hero-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     font-size: clamp(3.2rem, 11vw, 6.4rem);
     font-weight: 600; line-height: 0.95;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
     margin-bottom: 1.8rem;
   }
   .hero-title .line {
@@ -216,7 +216,7 @@
   /* ══ PAYPAL BUTTON ══ */
   .btn-pp {
     display: inline-flex; align-items: center; gap: 0.65rem;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 0.78rem; font-weight: 700;
     letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--ink); text-decoration: none;
@@ -257,7 +257,7 @@
   .story { background: var(--bg1); }
 
   .story-h {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     font-size: clamp(2.2rem, 6vw, 3.6rem);
     font-weight: 600; line-height: 1.08;
     letter-spacing: -0.015em;
@@ -276,7 +276,7 @@
   .bike-sec { background: var(--bg); }
 
   .bike-h {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     font-size: clamp(2rem, 5.5vw, 3.2rem);
     font-weight: 600; line-height: 1.1;
     letter-spacing: -0.015em;
@@ -319,7 +319,7 @@
     width: 100%; max-width: 620px; height: auto;
     object-fit: contain;
     mix-blend-mode: screen;
-    filter: brightness(1.06) drop-shadow(0 8px 40px rgba(155,135,174,0.18));
+    filter: brightness(1.06) drop-shadow(0 8px 40px rgba(140,90,200,0.22));
     transition: transform .5s ease;
     will-change: transform;
   }
@@ -377,9 +377,9 @@
     margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.4rem;
   }
   .progress-num {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     font-size: 3rem; font-weight: 600; line-height: 1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
   }
   .progress-of {
     font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em;
@@ -407,7 +407,7 @@
   /* ── IMPACT ── */
   .impact-sec { background: var(--bg1); }
   .impact-h {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     font-size: clamp(2rem, 5.5vw, 3.2rem);
     font-weight: 600; line-height: 1.1;
     letter-spacing: -0.015em; margin-bottom: 0.5rem;
@@ -436,12 +436,12 @@
   .impact-cell:nth-child(2n) { border-right: none; }
   .impact-cell:nth-child(3), .impact-cell:nth-child(4) { border-bottom: none; }
   @media (hover: hover) {
-    .impact-cell:hover { background: rgba(200,184,212,0.04); }
+    .impact-cell:hover { background: rgba(168,127,212,0.06); }
     .impact-cell:hover .impact-arrow { opacity: 1; transform: translate(0,0); }
   }
-  .impact-cell:active { background: rgba(200,184,212,0.07); }
+  .impact-cell:active { background: rgba(168,127,212,0.10); }
   .impact-amount-big {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     font-size: 2.6rem; font-weight: 600; line-height: 1;
     color: var(--ink); margin-bottom: 0.6rem;
   }
@@ -460,10 +460,10 @@
   /* ── DONATE ── */
   .donate-sec { background: var(--bg); text-align: center; }
   .donate-h {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     font-size: clamp(2.4rem, 8vw, 4rem);
     font-weight: 600; line-height: 1.0;
-    letter-spacing: -0.02em; margin-bottom: 1.1rem;
+    letter-spacing: -0.015em; margin-bottom: 1.1rem;
   }
   .donate-sub {
     font-size: clamp(0.88rem, 2.2vw, 0.95rem); color: var(--muted);
@@ -518,7 +518,7 @@
 </head>
 <body>
 
-<nav class="lang-bar" aria-label="Language"><a href="en.html" class="lang-btn">EN</a></nav>
+<nav class="lang-bar" aria-label="Language"><a href="en.html" class="lang-btn"><span aria-hidden="true">🇬🇧</span> EN</a></nav>
 
 <!-- ══ HERO ══ -->
 <section class="hero" aria-label="Hero">
