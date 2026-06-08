@@ -514,6 +514,100 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   }
+
+  /* ══ ANIMATED OBJECTS ══ */
+
+  /* 1. PayPal button — dual-ring pulse */
+  @keyframes pp-pulse {
+    0%   { box-shadow: 0 4px 24px rgba(0,48,135,0.40),
+                       0 0 0 0   rgba(0,48,135,0.55),
+                       0 0 0 0   rgba(128,88,184,0.30); }
+    50%  { box-shadow: 0 4px 24px rgba(0,48,135,0.40),
+                       0 0 0 10px rgba(0,48,135,0.12),
+                       0 0 0 20px rgba(128,88,184,0.06); }
+    100% { box-shadow: 0 4px 24px rgba(0,48,135,0.40),
+                       0 0 0 18px rgba(0,48,135,0.00),
+                       0 0 0 36px rgba(128,88,184,0.00); }
+  }
+  .btn-pp {
+    animation: pp-pulse 2.4s cubic-bezier(0.4,0,0.6,1) infinite;
+  }
+  .btn-pp:hover, .btn-pp:active {
+    animation: none;
+    background: var(--pp-blue-d);
+    box-shadow: 0 6px 32px rgba(0,48,135,0.55);
+  }
+  .btn-pp-lg {
+    animation: pp-pulse 2.4s cubic-bezier(0.4,0,0.6,1) infinite;
+  }
+  .btn-pp-lg:hover, .btn-pp-lg:active {
+    animation: none;
+    background: var(--pp-blue-d);
+    box-shadow: 0 6px 32px rgba(0,48,135,0.55);
+  }
+
+  /* 2. Impact cells — subtle border shimmer on hover */
+  @keyframes border-glow {
+    0%   { outline-color: rgba(128,88,184,0.00); }
+    50%  { outline-color: rgba(128,88,184,0.50); }
+    100% { outline-color: rgba(128,88,184,0.00); }
+  }
+  @media (hover: hover) {
+    .impact-cell:hover {
+      outline: 1px solid rgba(128,88,184,0.50);
+      outline-offset: -1px;
+      animation: border-glow 1.6s ease infinite;
+    }
+  }
+
+  /* 3. Progress fill — gentle shimmer sweep after load */
+  @keyframes fill-sheen {
+    0%   { background-position: -200% center; }
+    100% { background-position: 300% center; }
+  }
+  .progress-fill.in {
+    background: linear-gradient(
+      90deg,
+      var(--accent-mid) 0%,
+      var(--accent)     40%,
+      #D4AFFF            55%,
+      var(--accent)     70%,
+      var(--accent-mid) 100%
+    );
+    background-size: 250% 100%;
+    animation: fill-sheen 3.5s linear 0.5s infinite;
+  }
+
+  /* 4. Hero bike — very slow breathe (replaces previous float) */
+  @keyframes bike-breathe {
+    0%   { transform: translateX(0%) translateY(0px) scale(1.000); filter: brightness(1.08) drop-shadow(0 0 80px rgba(160,130,190,0.30)); }
+    50%  { transform: translateX(0%) translateY(-8px) scale(1.006); filter: brightness(1.10) drop-shadow(0 0 100px rgba(160,130,190,0.42)); }
+    100% { transform: translateX(0%) translateY(0px) scale(1.000); filter: brightness(1.08) drop-shadow(0 0 80px rgba(160,130,190,0.30)); }
+  }
+  .hero-bike img.arrived {
+    animation: bike-breathe 7s ease-in-out infinite !important;
+  }
+
+  /* 5. Section label — accent line grows in */
+  @keyframes line-grow {
+    from { max-width: 0; opacity: 0; }
+    to   { max-width: 60px; opacity: 1; }
+  }
+  .sec-label.in::after {
+    animation: line-grow 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+  }
+
+  /* 6. Hero eyebrow underline ping */
+  @keyframes eyebrow-ping {
+    0%   { opacity: 0.0; transform: scaleX(0); }
+    40%  { opacity: 1.0; transform: scaleX(1); }
+    100% { opacity: 0.0; transform: scaleX(1.4); }
+  }
+  .hero-eyebrow::before {
+    animation: eyebrow-ping 2.8s ease-out 2.2s infinite;
+    transform-origin: left center;
+  }
+
 </style>
 </head>
 <body>
@@ -546,7 +640,7 @@
   <div class="hero-strip" role="presentation">
     <div class="hero-strip-item">Rose Blend Road · Lilas</div>
     <div class="hero-strip-item">Munich 2026</div>
-    <div class="hero-strip-item">87 € sur 980 € collectés</div>
+    <div class="hero-strip-item">87 € sur 1100 € collectés</div>
   </div>
 </section>
 
@@ -590,12 +684,12 @@
       <div class="progress-row">
         <div>
           <div class="progress-num">87 €</div>
-          <div class="progress-of">sur 980 €</div>
+          <div class="progress-of">sur 1100 €</div>
         </div>
-        <div class="progress-pct">9 % atteint</div>
+        <div class="progress-pct">8 % atteint</div>
       </div>
       <div class="progress-bar">
-        <div class="progress-fill" style="--pct:8.9%"></div>
+        <div class="progress-fill" style="--pct:7.9%"></div>
       </div>
       <div class="progress-note">Via PayPal · Juin 2026</div>
     </div>
@@ -677,6 +771,26 @@
     }), { threshold: 0.5 });
     pio.observe(fill);
   }
+
+  // Switch bike to breathe animation after arrive completes
+  const bikeImg = document.querySelector('.hero-bike img');
+  if (bikeImg) {
+    bikeImg.addEventListener('animationend', (e) => {
+      if (e.animationName === 'bikeIn') {
+        bikeImg.classList.add('arrived');
+      }
+    });
+  }
+
+  // Add 'in' class to progress fill when it scrolls into view (for sheen)
+  const progFill = document.querySelector('.progress-fill');
+  if (progFill) {
+    const pSheen = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); pSheen.unobserve(e.target); }
+    }), { threshold: 0.5 });
+    pSheen.observe(progFill);
+  }
+
 </script>
 </body>
 </html>
