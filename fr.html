@@ -101,6 +101,9 @@
     0%   { opacity: 0; transform: translateX(12%) scale(0.97); }
     100% { opacity: 1; transform: translateX(0%)  scale(1.00); }
   }
+  /* after bikeIn completes, keep opacity:1 until .arrived class takes over */
+  .hero-bike img { opacity: 0; }
+  .hero-bike img.arrived { opacity: 1 !important; }
 
   /* ── gradient masks ── */
   .hero-fade-left {
@@ -108,9 +111,10 @@
     background: linear-gradient(
       100deg,
       var(--bg) 0%,
-      rgba(8,8,16,.96) 28%,
-      rgba(8,8,16,.78) 48%,
-      rgba(8,8,16,.10) 72%,
+      rgba(8,8,16,.97) 22%,
+      rgba(8,8,16,.82) 38%,
+      rgba(8,8,16,.30) 52%,
+      rgba(8,8,16,.04) 65%,
       transparent 100%
     );
   }
@@ -125,7 +129,14 @@
     position: relative; z-index: 3;
     align-self: end;
     padding: calc(var(--sat) + 5.5rem) 5vw 3rem;
-    max-width: min(580px, 100%);
+    /* cap text to left 55% so bike is always exposed on right */
+    max-width: min(520px, 55%);
+  }
+  @media (max-width: 600px) {
+    .hero-body {
+      max-width: 100%;
+      padding-bottom: 2rem;
+    }
   }
 
   /* eyebrow — animate in after bike */
@@ -580,12 +591,13 @@
 
   /* 4. Hero bike — very slow breathe (replaces previous float) */
   @keyframes bike-breathe {
-    0%   { transform: translateX(0%) translateY(0px) scale(1.000); filter: brightness(1.08) drop-shadow(0 0 80px rgba(160,130,190,0.30)); }
-    50%  { transform: translateX(0%) translateY(-8px) scale(1.006); filter: brightness(1.10) drop-shadow(0 0 100px rgba(160,130,190,0.42)); }
-    100% { transform: translateX(0%) translateY(0px) scale(1.000); filter: brightness(1.08) drop-shadow(0 0 80px rgba(160,130,190,0.30)); }
+    0%   { opacity:1; transform: translateX(0%) translateY(0px)  scale(1.000); filter: brightness(1.08) drop-shadow(0 0 80px rgba(160,130,190,0.30)); }
+    50%  { opacity:1; transform: translateX(0%) translateY(-8px) scale(1.006); filter: brightness(1.10) drop-shadow(0 0 100px rgba(160,130,190,0.42)); }
+    100% { opacity:1; transform: translateX(0%) translateY(0px)  scale(1.000); filter: brightness(1.08) drop-shadow(0 0 80px rgba(160,130,190,0.30)); }
   }
   .hero-bike img.arrived {
     animation: bike-breathe 7s ease-in-out infinite !important;
+    opacity: 1 !important;
   }
 
   /* 5. Section label — accent line grows in */
@@ -777,9 +789,24 @@
   if (bikeImg) {
     bikeImg.addEventListener('animationend', (e) => {
       if (e.animationName === 'bikeIn') {
-        bikeImg.classList.add('arrived');
+        // freeze current computed style so there's no flicker
+        bikeImg.style.opacity = '1';
+        bikeImg.style.transform = 'translateX(0%) scale(1)';
+        // rAF ensures paint before class swap
+        requestAnimationFrame(() => {
+          bikeImg.classList.add('arrived');
+          bikeImg.style.opacity = '';
+          bikeImg.style.transform = '';
+        });
       }
     });
+    // safety fallback: if animationend never fires, show bike after 1.5s
+    setTimeout(() => {
+      if (!bikeImg.classList.contains('arrived')) {
+        bikeImg.style.opacity = '1';
+        bikeImg.classList.add('arrived');
+      }
+    }, 1500);
   }
 
   // Add 'in' class to progress fill when it scrolls into view (for sheen)
